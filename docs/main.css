@@ -33,6 +33,7 @@ html {
 #countries h1 {
   text-align: center;
   grid-column-end: span 2;
+  margin-bottom: 0;
 }
 
 #countries h2 {
@@ -49,13 +50,24 @@ html {
   row-gap: 1em;
 }
 
+#countries nav {
+  font-size: 1.2em;
+  grid-column-end: span 2;
+  text-align: center;
+}
+
+#countries nav a {
+  color: #CCC;
+  text-decoration: none;
+}
+
 @media (max-width: 650px) {
   #countries {
     row-gap: 0;
     grid-template-columns: 1fr;  
   }
 
-  #countries h1 {
+  #countries h1, #countries nav {
     grid-column-end: span 1;
   }
   
@@ -65,3 +77,4 @@ html {
     text-align: right;
   }
 }
+
