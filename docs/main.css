@@ -24,7 +24,7 @@ https://github.com/pure-css/pure/blob/master/LICENSE.md
 
 html {
   margin: 0 auto;
-  max-width: 60em;
+  max-width: 80em;
 
   background-color: var(--bg-color);
   color: var(--fg-color);
@@ -49,7 +49,7 @@ html {
   row-gap: 1em;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 650px) {
   #countries {
     row-gap: 0;
     grid-template-columns: 1fr;  
@@ -60,9 +60,8 @@ html {
   }
   
   #countries h2 {
-    font-size: 1.2em;
+    font-size: 1em;
     padding-bottom: 1em;
     text-align: right;
   }
 }
-
