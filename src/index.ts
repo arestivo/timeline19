@@ -47,7 +47,7 @@ const aggregateData = (array : string[][]) => {
     const values = line.slice(4)
     const country = countries.get(name) || new Array(values.length).fill(0)
 
-    countries.set(name, country?.map((value, idx) => value + parseInt(values[idx])))
+    if (name) countries.set(name, country?.map((value, idx) => value + parseInt(values[idx])))
   })
 
   return countries
@@ -87,8 +87,9 @@ const createBar = (country: string, values: string[]) => {
 
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
   svg.setAttribute('width', '100%')
-  svg.setAttribute('height', '30px')
+  svg.setAttribute('height', '100%')
   svg.setAttribute('viewBox', '0 0 1000 30')
+  svg.setAttribute('preserveAspectRatio', 'xMaxYMid meet')
   section?.appendChild(svg)
 
   const g = document.createElementNS("http://www.w3.org/2000/svg", "g")
