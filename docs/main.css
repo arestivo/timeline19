@@ -36,6 +36,7 @@ html {
 }
 
 #countries h2 {
+  max-width: 14vw;
   width: 14em;
   margin: 0;
 
