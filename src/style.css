@@ -1,0 +1,29 @@
+:root {
+  --bg-color: #333;
+  --fg-color: #DDD;
+  font-size: 50%;
+}
+
+html {
+  margin: 0 auto;
+  max-width: 60em;
+
+  background-color: var(--bg-color);
+  color: var(--fg-color);
+}
+
+h1 {
+  text-align: center;
+}
+
+#countries {
+  display: grid;
+  column-gap: 1em;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  margin: 0 1em;
+}
+
+#countries svg:first-of-type {
+  grid-column-start: 1;
+}
