@@ -152,23 +152,29 @@ const loadCSV = () => {
     .then(orderByTotal)
     .then(calculateDaily)
     .then(calculateGrowth)
-    .then(calculateColors)
+    .then(() => calculateColors(data.daily))
     .then(createBars)
 }
 
 loadCSV()
 
 document.querySelector('a.total')?.addEventListener('click', () => {
+  document.querySelectorAll('nav a').forEach(e => e.classList.remove('selected'))
+  document.querySelector('nav a.total')?.classList.add('selected')
   createBars(calculateColors(data.total))
   document.querySelectorAll('.toremove').forEach(e => e.remove())
 })
 
 document.querySelector('a.daily')?.addEventListener('click', () => {
+  document.querySelectorAll('nav a').forEach(e => e.classList.remove('selected'))
+  document.querySelector('nav a.daily')?.classList.add('selected')
   createBars(calculateColors(data.daily))
   document.querySelectorAll('.toremove').forEach(e => e.remove())
 })
 
 document.querySelector('a.growth')?.addEventListener('click', () => {
+  document.querySelectorAll('nav a').forEach(e => e.classList.remove('selected'))
+  document.querySelector('nav a.growth')?.classList.add('selected')
   createBars(calculateColors(data.growth))
   document.querySelectorAll('.toremove').forEach(e => e.remove())
 })

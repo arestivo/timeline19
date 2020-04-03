@@ -61,6 +61,11 @@ html {
   text-decoration: none;
 }
 
+#countries nav a.selected {
+  color: #FB0;
+  text-decoration: none;
+}
+
 @media (max-width: 650px) {
   #countries {
     row-gap: 0;
