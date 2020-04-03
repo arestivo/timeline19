@@ -58,6 +58,8 @@ const orderByTotal = (countries: Map<string, number[]>) => {
 }
 
 const calculateDaily = (total: Map<string, number[]>) => {
+  if (!(document.location.href.endsWith('?growth') || document.location.href.endsWith('?daily'))) return total
+
   const daily : Map<string, number[]> = new Map
 
   Array.from(total.keys()).forEach(country => {
@@ -69,7 +71,7 @@ const calculateDaily = (total: Map<string, number[]>) => {
 }
 
 const calculateGrowth = (daily: Map<string, number[]>) => {
-  if (!document.location.href.endsWith('#growth')) return daily
+  if (!document.location.href.endsWith('?growth')) return daily
 
   const growth : Map<string, number[]> = new Map
 
