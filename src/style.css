@@ -18,17 +18,12 @@ html {
 }
 
 #countries h2 {
-  max-width: 14vw;
-  width: 14em;
   margin: 0;
-
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 #countries {
   display: grid;
-  margin: 0 1em;
+  margin: 0 2em;
 
   grid-template-columns: 1fr auto;
 
@@ -36,8 +31,19 @@ html {
   row-gap: 1em;
 }
 
-@media only screen and (max-width: 500px) {
-  :root {
-    font-size: 1.8vw;
-  }  
+@media (max-width: 500px) {
+  #countries {
+    row-gap: 0;
+    grid-template-columns: 1fr;  
+  }
+
+  #countries h1 {
+    grid-column-end: span 1;
+  }
+  
+  #countries h2 {
+    font-size: 1em;
+    padding-bottom: 1em;
+    text-align: right;
+  }
 }
