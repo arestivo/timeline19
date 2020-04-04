@@ -32,7 +32,6 @@ html {
 
 #countries h1 {
   text-align: center;
-  grid-column-end: span 2;
   margin-bottom: 0;
 }
 
@@ -52,8 +51,8 @@ html {
 
 #countries nav {
   font-size: 1.2em;
-  grid-column-end: span 2;
   text-align: center;
+  grid-column-start: 1;
 }
 
 #countries nav a {
@@ -64,6 +63,10 @@ html {
 #countries nav a.selected {
   color: #FB0;
   text-decoration: none;
+}
+
+#countries svg {
+  grid-column-start: 1;
 }
 
 @media (max-width: 650px) {
@@ -82,4 +85,3 @@ html {
     text-align: right;
   }
 }
-
