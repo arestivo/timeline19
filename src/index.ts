@@ -2,12 +2,10 @@ import 'purecss/build/pure-min.css'
 import 'purecss/build/grids-responsive-min.css'
 
 import './style.css'
-import { NoEmitOnErrorsPlugin } from 'webpack';
 
-const papa = require('papaparse');
+import {parse} from 'papaparse'
 
 const CSV = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
-
 
 type values = Map<string, number[]>
 type colors = Map<string, string[]>
@@ -156,7 +154,7 @@ const addMenuListener = (type: keyof data) => {
 const loadCSV = () => {
   fetch(CSV)
     .then(response => response.text())
-    .then(csv => papa.parse(csv))
+    .then(csv => parse(csv))
     .then(response => response.data)
     .then(array => array.slice(1))
     .then(aggregateData)
