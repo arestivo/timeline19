@@ -8,8 +8,10 @@ const papa = require('papaparse');
 
 const CSV = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
 
+
 type values = Map<string, number[]>
 type colors = Map<string, string[]>
+type data = {total : values, daily : values, growth : values}
 
 const data = { total : <values>{}, daily : <values>{}, growth : <values>{} }
 
@@ -142,6 +144,15 @@ const createBars = (countries : colors) => {
   Array.from(countries.keys()).forEach(country => createBar(country, countries.get(country) || []))
 }
 
+const addMenuListener = (type: keyof data) => {
+  document.querySelector(`a.${type}`)?.addEventListener('click', () => {
+    document.querySelectorAll('nav a').forEach(e => e.classList.remove('selected'))
+    document.querySelector(`nav a.${type}`)?.classList.add('selected')
+    createBars(calculateColors(data[type]))
+    document.querySelectorAll('.toremove').forEach(e => e.remove())
+  })  
+}
+
 const loadCSV = () => {
   fetch(CSV)
     .then(response => response.text())
@@ -158,23 +169,6 @@ const loadCSV = () => {
 
 loadCSV()
 
-document.querySelector('a.total')?.addEventListener('click', () => {
-  document.querySelectorAll('nav a').forEach(e => e.classList.remove('selected'))
-  document.querySelector('nav a.total')?.classList.add('selected')
-  createBars(calculateColors(data.total))
-  document.querySelectorAll('.toremove').forEach(e => e.remove())
-})
-
-document.querySelector('a.daily')?.addEventListener('click', () => {
-  document.querySelectorAll('nav a').forEach(e => e.classList.remove('selected'))
-  document.querySelector('nav a.daily')?.classList.add('selected')
-  createBars(calculateColors(data.daily))
-  document.querySelectorAll('.toremove').forEach(e => e.remove())
-})
-
-document.querySelector('a.growth')?.addEventListener('click', () => {
-  document.querySelectorAll('nav a').forEach(e => e.classList.remove('selected'))
-  document.querySelector('nav a.growth')?.classList.add('selected')
-  createBars(calculateColors(data.growth))
-  document.querySelectorAll('.toremove').forEach(e => e.remove())
-})
+addMenuListener('total')
+addMenuListener('daily')
+addMenuListener('growth')
