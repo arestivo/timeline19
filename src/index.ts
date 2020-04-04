@@ -5,6 +5,8 @@ import './style.css'
 
 import {parse} from 'papaparse'
 
+const {ColorInterpolator} = require ('color-extensions')
+
 const CSV = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
 
 type values = Map<string, number[]>
@@ -12,38 +14,6 @@ type colors = Map<string, string[]>
 type data = {total : values, daily : values, growth : values}
 
 const data = { total : <values>{}, daily : <values>{}, growth : <values>{} }
-
-const HSLToRGB = (h: number, s: number, l: number) => {
-  s /= 100
-  l /= 100
-
-  let c = (1 - Math.abs(2 * l - 1)) * s
-  let x = c * (1 - Math.abs((h / 60) % 2 - 1))
-  let m = l - c/2
-  let r = 0
-  let  g = 0
-  let b = 0
-
-  if (0 <= h && h < 60) {
-    r = c; g = x; b = 0;
-  } else if (60 <= h && h < 120) {
-    r = x; g = c; b = 0;
-  } else if (120 <= h && h < 180) {
-    r = 0; g = c; b = x;
-  } else if (180 <= h && h < 240) {
-    r = 0; g = x; b = c;
-  } else if (240 <= h && h < 300) {
-    r = x; g = 0; b = c;
-  } else if (300 <= h && h < 360) {
-    r = c; g = 0; b = x;
-  }
-
-  r = Math.round((r + m) * 255);
-  g = Math.round((g + m) * 255);
-  b = Math.round((b + m) * 255);
-    
-  return `rgb(${r}, ${g}, ${b})`
-}
 
 const aggregateData = (array : string[][]) => {
   const countries : values = new Map
@@ -97,11 +67,13 @@ const calculateGrowth = (daily: values) => {
 
 const calculateColors = (countries: values) => {
   const colors : colors = new Map
+  const colorMap = { 0: "333", 1.0: "#1ee" }
+  const interpolator = new ColorInterpolator(colorMap)
 
   Array.from(countries.keys()).forEach(country => {
     const values = countries.get(country) || []
     const max = Math.max(...values)
-    colors.set(country, values.map(value => HSLToRGB(200, 100, 25 + (value / max) * 35)))
+    colors.set(country, values.map(value => interpolator.getColor(Math.max(0, max == 0 ? 0 : value / max))))
   })
 
   return colors
